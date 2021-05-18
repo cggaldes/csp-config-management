@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ip-location-mapper
+  labels:
+    app: ip-location-mapper
+  annotations:
+    configsync.gke.io/cluster-name-selector: anthos-eks
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ip-location-mapper
+  template:
+    metadata:
+      labels:
+        app: ip-location-mapper
+    spec:
+      containers:
+      - name: ip-location-mapper
+        image: jeshocarmel/ip_location_mapper:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: REDIS_URL
+          value: 34.151.116.66:6379
+        - name: REDIS_PASSWORD
+          value: ""
+        - name: IPSTACK_API_KEY
+          value: 4c3ab5c549aabd5a624a9ff2af21f719

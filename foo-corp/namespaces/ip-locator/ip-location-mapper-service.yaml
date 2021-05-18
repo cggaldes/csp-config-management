@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ip-location-mapper
+  name: ip-location-mapper
+  annotations:
+    configsync.gke.io/cluster-name-selector: anthos-eks
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ip-location-mapper
+  type: LoadBalancer
